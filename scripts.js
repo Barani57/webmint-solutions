@@ -6,7 +6,7 @@
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all components
-    // initPreloader();
+    initPreloader();
     initThemeToggle();
     initNavbar();
     initSmoothScroll();
@@ -67,6 +67,34 @@ document.addEventListener('DOMContentLoaded', function() {
 //         }, 800);
 //     });
 // }
+
+function initPreloader() {
+  const preloader = document.getElementById('preloader');
+  if (!preloader) return;
+
+  // Lock scroll while preloader shows
+  document.body.style.overflow = 'hidden';
+
+  // Animation is ~12s — dismiss after 13s as safety
+  const dismissTime = 13000;
+
+  function dismiss() {
+    preloader.style.transition = 'opacity 0.7s ease';
+    preloader.style.opacity = '0';
+    setTimeout(() => {
+      preloader.style.display = 'none';
+      document.body.style.overflow = '';
+    }, 700);
+  }
+
+  // Listen for message from iframe when animation ends
+  window.addEventListener('message', (e) => {
+    if (e.data === 'webmint-intro-done') dismiss();
+  });
+
+  // Fallback timeout
+  setTimeout(dismiss, dismissTime);
+}
 
 /* ============================================
    Theme Toggle (Dark/Light Mode)

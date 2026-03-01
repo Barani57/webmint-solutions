@@ -304,11 +304,26 @@
 <body>
     <!-- Preloader -->
 <!-- NEW VIDEO PRELOADER -->
-<div id="preloader">
+<!-- <div id="preloader">
   <video id="introVideo" autoplay muted playsinline preload="auto">
     <source src="assets/webmint-intro.mp4" type='video/mp4; codecs="hvc1"'>
     <source src="assets/webmint-intro-avc.mp4"  type="video/mp4">
   </video>
+</div> -->
+
+<!-- WebMint Intro Preloader -->
+<div id="preloader" style="
+  position:fixed; inset:0; z-index:99999;
+  background:#12141d;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+">
+  <iframe 
+    id="introFrame"
+    src="webmint-intro.html"
+    style="border:none; width:100vw; height:100vh; display:block;"
+    scrolling="no"
+  ></iframe>
 </div>
 
     <!-- Theme Toggle -->
