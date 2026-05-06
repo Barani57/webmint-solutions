@@ -9,6 +9,7 @@
 <link rel="preload" href="blob-a.svg" as="image" type="image/svg+xml"/>
 <link rel="preload" href="blob-b.svg" as="image" type="image/svg+xml"/>
 <link rel="dns-prefetch" href="https://fonts.googleapis.com"/>
+<script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.91/build/spline-viewer.js"></script>
 <meta name="theme-color" content="#1A2233"/>
 <style>
   body{opacity:0;transition:opacity .3s}
@@ -1030,6 +1031,180 @@ img.loaded { opacity:1; }
     inset 0 1px 0 rgba(255,255,255,.9);
 }
 
+/* ══════════════════════════════════
+   SVC LAYOUT + SPLINE + MOBILE ORB
+══════════════════════════════════ */
+
+/* Hide Spline badge */
+spline-viewer::part(logo) { display:none !important; }
+
+/* Desktop grid layout */
+.svc-top-wrap {
+  display:grid;
+  grid-template-columns:1fr 280px;
+  gap:48px;
+  align-items:start;
+  margin-bottom:60px;
+}
+
+/* Spline panel — sticky on desktop */
+.svc-3d-panel {
+  position:sticky;
+  top:88px;
+}
+
+/* Spline container box */
+.svc-spline-wrap {
+  display:block;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow-xl);
+  background:var(--dark2);
+  height:320px;
+  position:relative;
+}
+
+/* Label inside spline box */
+.svc-3d-label {
+  position:absolute; bottom:12px; left:50%;
+  transform:translateX(-50%);
+  font-size:.44rem; font-weight:500; letter-spacing:.14em;
+  text-transform:uppercase; color:rgba(168,180,200,.55);
+  background:rgba(15,21,32,0.78);
+  backdrop-filter:blur(10px);
+  padding:4px 12px; border-radius:100px;
+  border:1px solid rgba(255,255,255,.06);
+  white-space:nowrap; pointer-events:none; z-index:10;
+  position:absolute;
+}
+
+/* Mobile CSS orb — hidden on desktop */
+.svc-mobile-3d { display:none; }
+
+/* ── CSS 3D ORB ── */
+.m3d-orb-wrap {
+  width:190px; height:190px;
+  position:relative;
+  margin:0 auto 20px;
+}
+.m3d-ring {
+  position:absolute; border-radius:50%;
+  border:1px solid rgba(91,156,246,.18);
+  top:50%; left:50%;
+}
+.m3d-ring-1 {
+  width:190px; height:190px;
+  transform:translate(-50%,-50%);
+  animation:m3dSpin 16s linear infinite;
+}
+.m3d-ring-2 {
+  width:148px; height:148px;
+  transform:translate(-50%,-50%);
+  border-style:dashed;
+  border-color:rgba(58,110,168,.14);
+  animation:m3dSpin 11s linear infinite reverse;
+}
+.m3d-ring-3 {
+  width:108px; height:108px;
+  transform:translate(-50%,-50%);
+  border-color:rgba(91,156,246,.10);
+  animation:m3dSpin 22s linear infinite;
+}
+@keyframes m3dSpin {
+  from { transform:translate(-50%,-50%) rotate(0deg); }
+  to   { transform:translate(-50%,-50%) rotate(360deg); }
+}
+.m3d-core {
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:82px; height:82px; border-radius:50%;
+  background:conic-gradient(
+    from 180deg,
+    rgba(58,110,168,.18) 0deg,
+    rgba(91,156,246,.28) 90deg,
+    rgba(110,142,170,.14) 180deg,
+    rgba(58,110,168,.10) 270deg,
+    rgba(58,110,168,.18) 360deg
+  );
+  box-shadow:inset 0 0 24px rgba(58,110,168,.16), 0 0 32px rgba(91,156,246,.12);
+  border:1px solid rgba(91,156,246,.22);
+  animation:m3dPulse 4s ease-in-out infinite;
+  overflow:hidden;
+}
+.m3d-core-inner {
+  position:absolute; inset:0; border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,
+    rgba(255,255,255,.22) 0%, rgba(91,156,246,.08) 40%, transparent 70%);
+}
+@keyframes m3dPulse {
+  0%,100% { transform:translate(-50%,-50%) scale(1); }
+  50%      { transform:translate(-50%,-50%) scale(1.06); }
+}
+.m3d-p {
+  position:absolute; border-radius:50%;
+  background:var(--blue-lt);
+  box-shadow:0 0 6px rgba(91,156,246,.6);
+}
+.m3d-p1 { width:5px; height:5px; top:12%; left:22%; animation:m3dFloat 5s ease-in-out infinite; }
+.m3d-p2 { width:4px; height:4px; top:18%; right:18%; animation:m3dFloat 6.5s ease-in-out infinite .8s; background:var(--blue); }
+.m3d-p3 { width:3px; height:3px; bottom:16%; left:15%; animation:m3dFloat 7s ease-in-out infinite 1.2s; }
+.m3d-p4 { width:5px; height:5px; bottom:20%; right:22%; animation:m3dFloat 5.5s ease-in-out infinite .4s; }
+@keyframes m3dFloat {
+  0%,100% { transform:translateY(0) scale(1); opacity:.7; }
+  50%      { transform:translateY(-10px) scale(1.2); opacity:1; }
+}
+.m3d-stats {
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:16px;
+  background:#fff; border:1px solid var(--border);
+  border-radius:12px; padding:14px 0;
+  box-shadow:var(--shadow-sm);
+}
+.m3d-stat { flex:1; text-align:center; padding:0 12px; }
+.m3d-stat-div { width:1px; height:28px; background:var(--border); flex-shrink:0; }
+.m3d-stat-n {
+  font-size:1.1rem; font-weight:700;
+  letter-spacing:-.02em; color:var(--dark); line-height:1;
+}
+.m3d-stat-n span {
+  font-size:.5em; color:var(--blue);
+  vertical-align:top; margin-top:.2em; display:inline-block;
+}
+.m3d-stat-l {
+  font-size:.48rem; font-weight:400; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--muted); margin-top:4px;
+}
+.m3d-badge {
+  display:flex; align-items:center; justify-content:center; gap:7px;
+  font-size:.5rem; font-weight:500; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--muted);
+  background:#fff; border:1px solid var(--border);
+  border-radius:100px; padding:6px 14px;
+  box-shadow:var(--shadow-xs);
+}
+
+/* ── RESPONSIVE BREAKPOINTS ── */
+@media(max-width:1100px) {
+  .svc-top-wrap { grid-template-columns:1fr 240px; gap:32px; }
+  .svc-spline-wrap { height:280px; }
+}
+
+@media(max-width:900px) {
+  .svc-top-wrap { grid-template-columns:1fr; gap:32px; }
+  .svc-3d-panel { position:static; }
+  .svc-spline-wrap { display:none !important; }
+  .svc-mobile-3d { display:block; }
+}
+
+@media(max-width:680px) {
+  .m3d-orb-wrap { width:150px; height:150px; }
+  .m3d-ring-1 { width:150px; height:150px; }
+  .m3d-ring-2 { width:118px; height:118px; }
+  .m3d-ring-3 { width:88px; height:88px; }
+  .m3d-core { width:64px; height:64px; }
+}
+
 </style>
 </head>
 <body>
@@ -1317,19 +1492,91 @@ img.loaded { opacity:1; }
   <div class="sec-glow sec-glow-tl"></div>
   <div class="sec-glow sec-glow-br"></div>
 
-  <div class="svc-intro reveal">
-    <div>
-      <div class="s-ey">Services & Pricing</div>
-      <h2 class="s-h">What We Build.<br><em>What It Costs.</em></h2>
-      <p class="s-p">Every project is custom built. Prices below are starting rates. We always work within your budget — no pressure, no hidden costs.</p>
-    </div>
-    <div>
-      <div class="svc-note">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#5B9CF6" stroke-width="1.2"/><path d="M8 7v3.5M8 5v.5" stroke="#5B9CF6" stroke-width="1.2" stroke-linecap="round"/></svg>
-        We prepare everything according to your budget and requirement — no fixed package. We will customize the project to fit exactly what your business needs.
-      </div>
+
+
+<div class="svc-top-wrap reveal">
+  <!-- Left: heading and note -->
+  <div class="svc-top-left">
+    <div class="s-ey">Services & Pricing</div>
+    <h2 class="s-h">What We Build.<br><em>What It Costs.</em></h2>
+    <p class="s-p" style="margin-bottom:24px;">Every project is custom built. Prices below are starting rates. We always work within your budget — no pressure, no hidden costs.</p>
+    <div class="svc-note">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="#5B9CF6" stroke-width="1.2"/><path d="M8 7v3.5M8 5v.5" stroke="#5B9CF6" stroke-width="1.2" stroke-linecap="round"/></svg>
+      We prepare everything according to your budget and requirement — no fixed package. We customize the project to fit exactly what your business needs.
     </div>
   </div>
+
+  <!-- Right: Spline on desktop, CSS 3D on mobile -->
+  <div class="svc-3d-panel">
+
+    <!-- Desktop: real Spline -->
+    <div class="svc-spline-wrap">
+      <spline-viewer
+  url="https://prod.spline.design/MDy3mIIr4UTdhOEA/scene.splinecode"
+  style="width:100%;height:100%;display:block;background:var(--dark2);"
+  events-target="global">
+</spline-viewer>
+      <div class="svc-3d-label">3D · Interactive</div>
+    </div>
+
+    <!-- Mobile: pure CSS 3D card — no external load -->
+    <div class="svc-mobile-3d">
+      <!-- Animated rotating orb -->
+      <div class="m3d-orb-wrap">
+        <div class="m3d-ring m3d-ring-1"></div>
+        <div class="m3d-ring m3d-ring-2"></div>
+        <div class="m3d-ring m3d-ring-3"></div>
+        <div class="m3d-core">
+          <div class="m3d-core-inner"></div>
+          <!-- Inline halftone dots -->
+          <svg viewBox="0 0 120 120" style="position:absolute;inset:0;width:100%;height:100%;opacity:.18;">
+            <defs>
+              <radialGradient id="m3dg" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#5B9CF6" stop-opacity="1"/>
+                <stop offset="100%" stop-color="#5B9CF6" stop-opacity="0"/>
+              </radialGradient>
+              <pattern id="m3dp" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                <circle cx="5" cy="5" r="1.5" fill="#5B9CF6"/>
+              </pattern>
+              <mask id="m3dm"><rect width="120" height="120" fill="url(#m3dg)"/></mask>
+            </defs>
+            <circle cx="60" cy="60" r="60" fill="url(#m3dp)" mask="url(#m3dm)"/>
+          </svg>
+        </div>
+        <!-- Floating particles -->
+        <div class="m3d-p m3d-p1"></div>
+        <div class="m3d-p m3d-p2"></div>
+        <div class="m3d-p m3d-p3"></div>
+        <div class="m3d-p m3d-p4"></div>
+      </div>
+
+      <!-- Stats pills below orb -->
+      <div class="m3d-stats">
+        <div class="m3d-stat">
+          <div class="m3d-stat-n">7<span>+</span></div>
+          <div class="m3d-stat-l">Projects</div>
+        </div>
+        <div class="m3d-stat-div"></div>
+        <div class="m3d-stat">
+          <div class="m3d-stat-n">₹5.5K<span>+</span></div>
+          <div class="m3d-stat-l">From</div>
+        </div>
+        <div class="m3d-stat-div"></div>
+        <div class="m3d-stat">
+          <div class="m3d-stat-n">100<span>%</span></div>
+          <div class="m3d-stat-l">Custom</div>
+        </div>
+      </div>
+
+      <!-- Active badge -->
+      <div class="m3d-badge">
+        <div style="width:6px;height:6px;border-radius:50%;background:#28C840;animation:pulse 2s infinite;flex-shrink:0;"></div>
+        Available for Projects
+      </div>
+    </div>
+
+  </div>
+</div>
 
   <div class="svc-grid">
 
@@ -2047,7 +2294,7 @@ document.querySelectorAll('.pc,.sc,.rv').forEach(el=>{
 });
 
 /* ── Passive scroll listeners for better mobile perf ── */
-// const passiveOpts={passive:true};
+const passiveOpts={passive:true};
 // window.addEventListener('scroll',()=>{},passiveOpts);
 
 /* ── Reduce motion for accessibility ── */
