@@ -69,6 +69,7 @@
 ═══════════════════════════════════════ */
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
+@media(prefers-reduced-motion:reduce){ html { scroll-behavior:auto; } }
 body {
   font-family: var(--f);
   background: var(--white);
@@ -946,8 +947,10 @@ footer {
 }
 
 /* ── SMOOTH IMAGE LOADING ── */
-img { opacity:0; transition:opacity .4s; }
-img.loaded { opacity:1; }
+/* ── SMOOTH IMAGE LOADING — PNG/JPG only, not SVG ── */
+img:not([src$=".svg"]) { opacity:0; transition:opacity .4s; }
+img:not([src$=".svg"]).loaded { opacity:1; }
+img[src$=".svg"] { opacity:1; }
 
 /* ── HERO CARD GLASSMORPHISM ENHANCED ── */
 .hero-card-float {
@@ -1011,11 +1014,6 @@ img.loaded { opacity:1; }
 @keyframes skel { to { background-position:-200% 0; } }
 
 /* ── SECTION ENTER ANIMATION ── */
-.sec-enter {
-  opacity:0; transform:translateY(30px);
-  transition:opacity .8s var(--ease), transform .8s var(--ease);
-}
-.sec-enter.on { opacity:1; transform:none; }
 
 /* ── ABSTRACT CONTRAST SVG ACCENTS ── */
 .contrast-deco {
@@ -1248,7 +1246,7 @@ img.loaded { opacity:1; }
 ">
   <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' viewBox='0 0 800 800'>
     <rect fill='none' width='800' height='800'/>
-    <g fill-opacity='9'>
+    <g fill-opacity='10'>
       <circle fill='#FFFFFF'  cx='400' cy='400' r='600'/>
       <circle fill='#d8e2ee' cx='400' cy='400' r='500'/>
       <circle fill='#b0c5dc' cx='400' cy='400' r='400'/>
@@ -1263,7 +1261,7 @@ img.loaded { opacity:1; }
 <img src="mesh.png" alt="" aria-hidden="true" style="
   position:absolute; inset:0; width:100%; height:100%;
   object-fit:cover; pointer-events:none; z-index:0;
-  opacity:0.01; mix-blend-mode:multiply;
+  opacity:0.099; mix-blend-mode:multiply;
 "/>
 
 <!-- Abstract geometric SVG -->
@@ -1398,9 +1396,9 @@ img.loaded { opacity:1; }
   <div class="hero-card-float">
     <div class="hcf-label">// WebMint · Overview</div>
     <div class="hcf-m">
-      <div><div class="hcf-num">7<sup>+</sup></div><div class="hcf-lbl">Projects Live</div></div>
-      <div><div class="hcf-num">6<sup>+</sup></div><div class="hcf-lbl">Clients</div></div>
-      <div><div class="hcf-num">4</div><div class="hcf-lbl">Industries</div></div>
+      <div><div class="hcf-num">15<sup>+</sup></div><div class="hcf-lbl">Projects Live</div></div>
+      <div><div class="hcf-num">25<sup>+</sup></div><div class="hcf-lbl">Clients</div></div>
+      <div><div class="hcf-num">10</div><div class="hcf-lbl">Industries</div></div>
       <div><div class="hcf-num">2</div><div class="hcf-lbl">Years</div></div>
     </div>
     <div class="hcf-div"></div>
@@ -1439,9 +1437,9 @@ img.loaded { opacity:1; }
   </div>
 
   <div class="h-stats" style="position:relative;z-index:2;">
-    <div class="hs"><div class="hs-n" data-n="7">0<sup>+</sup></div><div class="hs-l">Projects Delivered</div></div>
+    <div class="hs"><div class="hs-n" data-n="15">0<sup>+</sup></div><div class="hs-l">Projects Delivered</div></div>
     <div class="hs"><div class="hs-n">₹5.5K<sup>+</sup></div><div class="hs-l">Starting Price</div></div>
-    <div class="hs"><div class="hs-n" data-n="4">0</div><div class="hs-l">Industries Served</div></div>
+    <div class="hs"><div class="hs-n" data-n="10">0</div><div class="hs-l">Industries Served</div></div>
     <div class="hs"><div class="hs-n">100<sup>%</sup></div><div class="hs-l">Custom Built</div></div>
   </div>
 
@@ -1530,7 +1528,7 @@ img.loaded { opacity:1; }
     </div>
     <div class="m3d-stats">
       <div class="m3d-stat">
-        <div class="m3d-stat-n">7<span>+</span></div>
+        <div class="m3d-stat-n">15<span>+</span></div>
         <div class="m3d-stat-l">Projects</div>
       </div>
       <div class="m3d-stat-div"></div>
@@ -1565,7 +1563,7 @@ img.loaded { opacity:1; }
       <div class="sc-desc">Single page — your business, contact, photos, location. Perfect for salons, cafés, parlours, and shops wanting Google presence fast.</div>
       <div class="sc-from">Starting from</div>
       <div class="sc-price">₹5,500 <span class="sc-onwards">onwards</span></div>
-      <div class="sc-days">⏱ &nbsp;3 – 5 Working Days</div>
+      <div class="sc-days">⏱ &nbsp;1 – 2 Working Days</div>
       <ul class="sc-feats">
         <li class="sc-feat">Domain name included</li>
         <li class="sc-feat">Mobile responsive design</li>
@@ -1585,7 +1583,7 @@ img.loaded { opacity:1; }
       <div class="sc-desc">Multi-page professional site. Home, About, Services, Gallery, Contact — full brand identity, animations & SEO. Looks premium on all devices.</div>
       <div class="sc-from">Starting from</div>
       <div class="sc-price">₹10,500 <span class="sc-onwards">onwards</span></div>
-      <div class="sc-days">⏱ &nbsp;7 – 14 Working Days</div>
+      <div class="sc-days">⏱ &nbsp;3 – 5 Working Days</div>
       <ul class="sc-feats">
         <li class="sc-feat">Domain + hosting setup</li>
         <li class="sc-feat">Animations & premium UI</li>
@@ -1605,7 +1603,7 @@ img.loaded { opacity:1; }
       <div class="sc-desc">Open from phone or laptop — anywhere, anytime. Billing, ERP, attendance, inventory, salon management, restaurant systems, grocery software.</div>
       <div class="sc-from">Starting from</div>
       <div class="sc-price">₹15,000 <span class="sc-onwards">onwards</span></div>
-      <div class="sc-days">⏱ &nbsp;15 – 30 Working Days</div>
+      <div class="sc-days">⏱ &nbsp;7 – 10 Working Days</div>
       <ul class="sc-feats">
         <li class="sc-feat">GST billing & invoicing</li>
         <li class="sc-feat">Staff attendance tracking</li>
@@ -1629,7 +1627,7 @@ img.loaded { opacity:1; }
       <div class="sc-desc">Installed on your computer — works without internet. Billing, inventory, attendance. Perfect for shops, factories, clinics with unstable connection.</div>
       <div class="sc-from">Starting from</div>
       <div class="sc-price">₹10,000 <span class="sc-onwards">onwards</span></div>
-      <div class="sc-days">⏱ &nbsp;10 – 20 Working Days</div>
+      <div class="sc-days">⏱ &nbsp;10 – 15 Working Days</div>
       <ul class="sc-feats">
         <li class="sc-feat">Works fully offline</li>
         <li class="sc-feat">Billing & invoice print</li>
@@ -1649,7 +1647,7 @@ img.loaded { opacity:1; }
       <div class="sc-desc">Android app for bookings, delivery, orders, customer loyalty — published on Google Play Store under your brand name.</div>
       <div class="sc-from">Starting from</div>
       <div class="sc-price">₹25,000 <span class="sc-onwards">onwards</span></div>
-      <div class="sc-days">⏱ &nbsp;30 – 45 Working Days</div>
+      <div class="sc-days">⏱ &nbsp;10 – 20 Working Days</div>
       <ul class="sc-feats">
         <li class="sc-feat">Android native app</li>
         <li class="sc-feat">Play Store publish</li>
@@ -1683,7 +1681,7 @@ img.loaded { opacity:1; }
       <div class="budget-txt">We always build to fit <span>your budget.</span></div>
       <div class="budget-sub">Tell us what you need and what you can spend — we prepare a custom plan. No pressure. No hidden cost. No fixed package.</div>
     </div>
-    <a href="https://wa.me/918883311488" class="btn-wt" target="_blank">
+    <a href="https://wa.me/918248233700" class="btn-wt" target="_blank">
       Discuss Your Project
       <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M1 6h10M6 1l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
@@ -1716,7 +1714,7 @@ img.loaded { opacity:1; }
       <div class="s-ey">Selected Work</div>
       <h2 class="s-h">Real Projects.<br><em>Real Results.</em></h2>
     </div>
-    <p class="s-p" style="max-width:300px;">7 projects. Every one built from scratch, custom for the client.</p>
+    <p class="s-p" style="max-width:300px;">Every one built from scratch, custom for the client.</p>
   </div>
 
   <div class="pg">
@@ -2122,7 +2120,10 @@ document.querySelectorAll('a,button,.pc,.sc').forEach(el=>{
 });
 
 /* ── Reveal ── */
-const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('on')}),{threshold:.06});
+/* ── Reveal — works on all devices ── */
+const io=new IntersectionObserver(e=>e.forEach(x=>{
+  if(x.isIntersecting){ x.target.classList.add('on'); io.unobserve(x.target); }
+}),{threshold:0, rootMargin:'0px 0px -20px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
 /* ── Counter ── */
@@ -2230,16 +2231,16 @@ document.querySelectorAll('.sc').forEach(card=>{
 // }
 
 /* ── Mobile gyroscope parallax ── */
-if(window.DeviceOrientationEvent && window.innerWidth<=768){
-  window.addEventListener('deviceorientation',e=>{
-    const x=(e.gamma||0)/30; // -1 to 1
-    const y=(e.beta||0)/30;
-    document.querySelectorAll('.blob').forEach((b,i)=>{
-      const s=[8,6,4][i]||5;
-      b.style.transform=`translate(${x*s}px,${y*s}px)`;
-    });
-  });
-}
+// if(window.DeviceOrientationEvent && window.innerWidth<=768){
+//   window.addEventListener('deviceorientation',e=>{
+//     const x=(e.gamma||0)/30; // -1 to 1
+//     const y=(e.beta||0)/30;
+//     document.querySelectorAll('.blob').forEach((b,i)=>{
+//       const s=[8,6,4][i]||5;
+//       b.style.transform=`translate(${x*s}px,${y*s}px)`;
+//     });
+//   });
+// }
 
 /* ── Magnetic buttons (desktop) ── */
 if(window.innerWidth>768){
@@ -2297,35 +2298,19 @@ if(prefersReduced){
 }
 
 /* ── Intersection observer for section-enter ── */
-const sio=new IntersectionObserver(e=>e.forEach(x=>{
-  if(x.isIntersecting){ x.target.classList.add('on'); sio.unobserve(x.target); }
-}),{threshold:.04,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('section').forEach(s=>{
-  s.classList.add('sec-enter');
-  sio.observe(s);
-});
 
 /* ── Optimise scroll: use requestAnimationFrame throttle ── */
+
 let ticking=false;
+const navEl=document.querySelector('nav');
+
 const allScrollHandlers=()=>{
+  const sy=window.scrollY;
   /* scroll bar */
-  const pct=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
+  const pct=(sy/(document.body.scrollHeight-window.innerHeight))*100;
   document.getElementById('scroll-bar').style.width=pct+'%';
-  /* nav shadow */
-  document.querySelector('nav').style.boxShadow=window.scrollY>30?'0 2px 20px rgba(26,34,51,0.09)':'none';
-  /* parallax desktop only */
-  if(window.innerWidth>768){
-    const sy=window.scrollY;
-    document.querySelectorAll('.sec-glow').forEach((g,i)=>{
-      g.style.transform=`translateY(${sy*.04*(i%2===0?1:-1)}px)`;
-    });
-    document.querySelectorAll('.hero-badge').forEach((b,i)=>{
-      b.style.transform=`translateY(${sy*.06*(i%2===0?-1:1)}px)`;
-    });
-    document.querySelectorAll('.hero-halftone,.hero-halftone-2').forEach((h,i)=>{
-      h.style.transform=`translateY(${sy*.08*(i===0?-1:1)}px)`;
-    });
-  }
+  /* nav shadow — cache the nav element */
+  navEl.style.boxShadow=sy>30?'0 2px 20px rgba(26,34,51,0.09)':'none';
   ticking=false;
 };
 
@@ -2335,11 +2320,6 @@ window.addEventListener('scroll',()=>{
 },passiveOpts);
 
 /* ── Mobile: disable heavy 3D tilt ── */
-if(window.innerWidth<=768){
-  document.querySelectorAll('.pc,.sc').forEach(card=>{
-    card.replaceWith(card.cloneNode(true)); /* removes mousemove listeners */
-  });
-}
 
 /* ── Preconnect to Google Fonts for speed ── */
 ['https://fonts.googleapis.com','https://fonts.gstatic.com'].forEach(url=>{
